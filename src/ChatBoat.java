@@ -1,6 +1,5 @@
 import banco.entidades.Agencia;
 import banco.entidades.Conta;
-import banco.entidades.ContaSimples;
 import banco.entidades.Extrato;
 import banco.entidades.util.Data;
 
@@ -8,7 +7,14 @@ import java.util.Scanner;
 
 public class ChatBoat {
     public static void main(String[] args) {
+        CadastroSimples cadastro = new CadastroSimples();
         Scanner scanner = new Scanner(System.in);
+        menuIncialLogica(scanner, cadastro);
+
+        scanner.close();
+    }
+
+    public static void menuIncialLogica(Scanner scanner, CadastroSimples cadastro) {
         boolean sair = false;
         while (!sair) {
             exibirMenuInicial();
@@ -16,7 +22,7 @@ public class ChatBoat {
             scanner.nextLine();
             switch (escolha) {
                 case 1:
-                    criarNovaConta(scanner);
+                    cadastro.cadastroContaSimples(scanner);
                     break;
                 case 2:
                     encontrarConta(scanner);
@@ -28,7 +34,6 @@ public class ChatBoat {
                     System.out.println("Digite uma opção válida");
             }
         }
-        scanner.close();
     }
 
     public static void exibirMenuConta(Conta conta, Scanner scanner) {
@@ -67,10 +72,6 @@ public class ChatBoat {
         }
     }
 
-    public static String lerEntradaDoUsuario(Scanner scanner) {
-        return scanner.nextLine();
-    }
-
     public static void exibirMenuInicial() {
         System.out.println("========= Escolha uma das opções =========");
         System.out.println("(1). Para criar uma conta.");
@@ -90,19 +91,6 @@ public class ChatBoat {
         System.out.println("6. Sair da conta");
         System.out.println("================================");
         System.out.print("Escolha uma opção: ");
-    }
-
-    public static void criarNovaConta(Scanner scanner) {
-        String nome, cpf;
-        System.out.print("Digite o nome completo: ");
-        nome = lerEntradaDoUsuario(scanner);
-        System.out.print("Digite o CPF: ");
-        cpf = lerEntradaDoUsuario(scanner);
-        System.out.println();
-        ContaSimples umaConta = new ContaSimples(nome, cpf);
-        Agencia.addConta(umaConta);
-
-        System.out.println("Conta adicionada! Seu número de conta é " + umaConta.getNúmero());
     }
 
     private static void encontrarConta(Scanner scanner) {

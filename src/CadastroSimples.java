@@ -1,29 +1,31 @@
 import java.util.Scanner;
 
+import banco.entidades.Agencia;
 import banco.entidades.ContaSimples;
 
 public class CadastroSimples {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         CadastroSimples cadastro = new CadastroSimples();
-        cadastro.cadastroContaSimples();
+        cadastro.cadastroContaSimples(scanner);
+        scanner.close();
     }
 
-    public void cadastroContaSimples() {
-        Scanner scanner = new Scanner(System.in);
+    public static String lerEntradaDoUsuario(Scanner scanner) {
+        return scanner.nextLine();
+    }
 
-        System.out.println("Digite o nome do titular:");
-        String nomeTitular = scanner.nextLine();
+    public void cadastroContaSimples(Scanner scanner) {
 
-        System.out.println("Digite o CPF do titular da conta: ");
-        String cpfTitular = scanner.next();
+        String nome, cpf;
+        System.out.print("Digite o nome completo: ");
+        nome = lerEntradaDoUsuario(scanner);
+        System.out.print("Digite o CPF: ");
+        cpf = lerEntradaDoUsuario(scanner);
+        System.out.println();
+        ContaSimples umaConta = new ContaSimples(nome, cpf);
+        Agencia.addConta(umaConta);
 
-        ContaSimples conta = new ContaSimples(nomeTitular, cpfTitular);
-
-        System.out.println("Conta criada:");
-        System.out.println("Nome do titular: " + conta.getNome());
-        System.out.println("CPF do titular: " + conta.getCPF());
-
-        // Lembre-se de fechar o Scanner
-        scanner.close();
+        System.out.println("Conta adicionada! Seu número de conta é " + umaConta.getNúmero());
     }
 }

@@ -16,10 +16,11 @@ public class App {
         System.out.print("Digite uma opção: ");
 
         opcoes = scanner.nextInt();
+        scanner.nextLine();
 
         switch (opcoes) {
             case 1:
-                cadastro.cadastroContaSimples();
+                cadastro.cadastroContaSimples(scanner);
                 break;
 
             default:
